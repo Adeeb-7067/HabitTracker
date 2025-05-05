@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar, Cell } from 'recharts';
-
+import Mohd from './Mohd_Adeeb'
 
 // Custom illustrations instead of icons
 const habitImages = [
@@ -206,6 +206,12 @@ const Page = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
+      const [showFeaturesDialog, setShowFeaturesDialog] = useState(false);
+      const [showPricingDialog, setShowPricingDialog] = useState(false);
+      const [showAboutUsDialog, setShowAboutUsDialog] = useState(false);
+      const [showContactDialog, setShowContactDialog] = useState(false);
+      const [showBlogDialog, setShowBlogDialog] = useState(false);
+      
 
     // Close dropdown when clicking outside
     React.useEffect(() => {
@@ -252,77 +258,111 @@ const Page = () => {
     return (
       <div className="min-h-screen bg-gray-100 font-sans">
         {/* Navigation Bar */}
-        <nav className="bg-black shadow-sm sticky top-0 z-30">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between h-16">
-              <div className="flex items-center">
-                <div className="text-xl md:text-2xl font-extrabold tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-green-600">
-                <div className="text-green-500 font-bold text-2xl">Habit<span className="text-pink-500">Tracker</span></div>
+        <nav className="bg-black shadow-sm sticky top-0 z-30 p-4">
+              <div className="max-w-7xl mx-auto flex justify-between items-center">
+                <div className="flex items-center">
+                  <div className="text-2xl font-extrabold">
+                    <span className="text-green-500">Habit</span>
+                    <span className="text-pink-500">Tracker</span>
+                  </div>
                 </div>
-              </div>
-              <div className="hidden text-md md:flex items-center space-x-8">
-                <a href="#" className="text-white hover:text-green-400">Home</a>
-                <a href="#" className="text-white hover:text-green-400">Features</a>
-                <a href="#" className="text-white hover:text-green-400">Pricing</a>
-                <div className="relative dropdown-container">
-                  <button
-                    onClick={() => setMoreInfoOpen(!moreInfoOpen)}
-                    className="text-white hover:text-green-400 flex items-center"
-                    aria-expanded={moreInfoOpen}
-                    aria-haspopup="true"
+                <div className="hidden md:flex items-center space-x-8">
+                  <button className="text-white hover:text-green-400">Home</button>
+                  <button 
+                    onClick={() => setShowFeaturesDialog(true)}
+                    className="text-white hover:text-green-400"
                   >
-                    More Info
-                    <svg
-                      className={`ml-1 h-4 w-4 transition-transform duration-200 ${moreInfoOpen ? 'transform rotate-180' : ''}`}
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
+                    Features
                   </button>
-                  <AnimatePresence>
-                    {moreInfoOpen && (
-                      <motion.div
-                        className="absolute right-0 mt-2 w-48 bg-gray-900 rounded-md shadow-lg py-1 border border-green-500/30"
-                        initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                        transition={{ duration: 0.2 }}
+                  <button 
+                    onClick={() => setShowPricingDialog(true)}
+                    className="text-white hover:text-green-400"
+                  >
+                    Pricing
+                  </button>
+                  <div className="relative dropdown-container">
+                    <button
+                      onClick={() => setMoreInfoOpen(!moreInfoOpen)}
+                      className="text-white hover:text-green-400 flex items-center"
+                      aria-expanded={moreInfoOpen}
+                      aria-haspopup="true"
+                    >
+                      More Info
+                      <svg
+                        className={`ml-1 h-4 w-4 transition-transform duration-200 ${moreInfoOpen ? 'transform rotate-180' : ''}`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
                       >
-                        <div className="py-1">
-                          <a href="#" className="block px-4 py-2 text-white hover:bg-gray-800 hover:text-green-400">About Us</a>
-                          <a href="#" className="block px-4 py-2 text-white hover:bg-gray-800 hover:text-green-400">Contact</a>
-                          <a href="#" className="block px-4 py-2 text-white hover:bg-gray-800 hover:text-green-400">Blog</a>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    <AnimatePresence>
+                      {moreInfoOpen && (
+                        <motion.div
+                          className="absolute right-0 mt-2 w-48 bg-gray-900 rounded-md shadow-lg py-1 border border-green-500/30"
+                          initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <div className="py-1">
+                            <button 
+                              onClick={() => {
+                                setMoreInfoOpen(false);
+                                setShowAboutUsDialog(true);
+                              }}
+                              className="block w-full text-left px-4 py-2 text-white hover:bg-gray-800 hover:text-green-400"
+                            >
+                              About Us
+                            </button>
+                            <button 
+                              onClick={() => {
+                                setMoreInfoOpen(false);
+                                setShowContactDialog(true);
+                              }}
+                              className="block w-full text-left px-4 py-2 text-white hover:bg-gray-800 hover:text-green-400"
+                            >
+                              Contact
+                            </button>
+                            <button 
+                              onClick={() => {
+                                setMoreInfoOpen(false);
+                                setShowBlogDialog(true);
+                              }}
+                              className="block w-full text-left px-4 py-2 text-white hover:bg-gray-800 hover:text-green-400"
+                            >
+                              Blog
+                            </button>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <motion.button
+                    className="px-4 py-2 border border-green-500 rounded-md text-sm text-green-500 bg-transparent hover:bg-green-900"
+                    variants={buttonVariants}
+                    onClick={() => setShowLoginDialog(true)}
+                    whileHover="hover"
+                    whileTap="tap"
+                  >
+                    Login
+                  </motion.button>
+                  <motion.button
+                    className="px-4 py-2 border border-transparent rounded-md text-sm text-black bg-green-500 hover:bg-green-600"
+                    variants={buttonVariants}
+                    onClick={() => setShowSignUpDialog(true)}
+                    whileHover="hover"
+                    whileTap="tap"
+                  >
+                    Sign Up
+                  </motion.button>
                 </div>
               </div>
-              <div className="flex items-center space-x-2">
-                <motion.button
-                  onClick={() => setShowLoginDialog(true)}
-                  className="px-4 py-2 border border-green-500 rounded-md text-sm text-green-500 bg-transparent hover:bg-green-900"
-                  variants={buttonVariants}
-                  whileHover="hover"
-                  whileTap="tap"
-                >
-                  Login
-                </motion.button>
-                <motion.button
-                  onClick={() => setShowSignUpDialog(true)}
-                  className="px-4 py-2 border border-transparent rounded-md text-sm text-black bg-green-500 hover:bg-green-600"
-                  variants={buttonVariants}
-                  whileHover="hover"
-                  whileTap="tap"
-                >
-                  Sign Up
-                </motion.button>
-              </div>
-            </div>
-          </div>
-        </nav>
+            </nav>
+      
 
         {/* Hero Section - Fixed to ensure full-size image cover */}
         <motion.div
@@ -516,6 +556,514 @@ const Page = () => {
                       whileTap="tap"
                     >
                       Create Account
+                    </motion.button>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
+
+
+
+            {/* Features Dialog */}
+              <AnimatePresence>
+                {showFeaturesDialog && (
+                  <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70 p-4">
+                    <motion.div
+                      className="bg-gray-900 rounded-lg shadow-xl max-w-2xl w-full border border-green-500"
+                      variants={dialogVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                    >
+                      <div className="p-6">
+                        <div className="flex justify-between items-start mb-6">
+                          <h3 className="text-2xl font-semibold text-green-500">Features</h3>
+                          <button
+                            onClick={() => setShowFeaturesDialog(false)}
+                            className="text-green-400 hover:text-green-500"
+                          >
+                            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </div>
+                        
+                        <div className="space-y-6">
+                          <div className="space-y-2">
+                            <h4 className="text-xl font-medium text-green-400">Daily Habit Tracking</h4>
+                            <p className="text-gray-300">
+                              Track unlimited habits with customizable reminders to keep you on track. Mark your daily progress with a simple tap and watch your streaks grow.
+                            </p>
+                          </div>
+                          
+                          <div className="space-y-2">
+                            <h4 className="text-xl font-medium text-green-400">Progress Visualization</h4>
+                            <p className="text-gray-300">
+                              View your progress through beautiful charts and graphs. See your daily, weekly, and monthly patterns to identify trends and improvement areas.
+                            </p>
+                          </div>
+                          
+                          <div className="space-y-2">
+                            <h4 className="text-xl font-medium text-green-400">Streak Counter</h4>
+                            <p className="text-gray-300">
+                              Build motivation with our streak counter. Get rewarded for consistency and receive encouraging notifications for milestone achievements.
+                            </p>
+                          </div>
+                          
+                          <div className="space-y-2">
+                            <h4 className="text-xl font-medium text-green-400">Custom Goals</h4>
+                            <p className="text-gray-300">
+                              Set personal goals with milestone celebrations. Whether it's drinking more water or reading daily, customize your targets and track your journey.
+                            </p>
+                          </div>
+                          
+                          <div className="space-y-2">
+                            <h4 className="text-xl font-medium text-green-400">Journal Integration</h4>
+                            <p className="text-gray-300">
+                              Record your thoughts and reflections alongside your habits. Connect emotional well-being with your daily routines for more meaningful insights.
+                            </p>
+                          </div>
+                        </div>
+                        
+                        <div className="mt-8 flex justify-end">
+                          <motion.button
+                            onClick={() => setShowFeaturesDialog(false)}
+                            className="px-5 py-2 bg-green-600 text-black rounded-md hover:bg-green-500 font-medium"
+                            variants={buttonVariants}
+                            whileHover="hover"
+                            whileTap="tap"
+                          >
+                            Close
+                          </motion.button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </div>
+                )}
+              </AnimatePresence>
+        
+              {/* Pricing Dialog */}
+              <AnimatePresence>
+                {showPricingDialog && (
+                  <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70 p-4">
+                    <motion.div
+                      className="bg-gray-900 rounded-lg shadow-xl max-w-2xl w-full border border-green-500"
+                      variants={dialogVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                    >
+                      <div className="p-6">
+                        <div className="flex justify-between items-start mb-6">
+                          <h3 className="text-2xl font-semibold text-green-500">Pricing Plans</h3>
+                          <button
+                            onClick={() => setShowPricingDialog(false)}
+                            className="text-green-400 hover:text-green-500"
+                          >
+                            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </div>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                          {/* Free Plan */}
+                          <div className="border border-gray-700 rounded-lg p-6 bg-gray-800 hover:border-green-500 transition-all duration-300">
+                            <h4 className="text-xl font-semibold text-white mb-2">Free</h4>
+                            <div className="text-3xl font-bold text-green-500 mb-4">$0<span className="text-sm text-gray-400">/month</span></div>
+                            <ul className="space-y-2 mb-6">
+                              <li className="flex items-center text-gray-300">
+                                <svg className="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                Track up to 3 habits
+                              </li>
+                              <li className="flex items-center text-gray-300">
+                                <svg className="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                Basic progress charts
+                              </li>
+                              <li className="flex items-center text-gray-300">
+                                <svg className="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                7-day history
+                              </li>
+                            </ul>
+                            <motion.button
+                              className="w-full py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600"
+                              variants={buttonVariants}
+                              whileHover="hover"
+                              whileTap="tap"
+                            >
+                              Get Started
+                            </motion.button>
+                          </div>
+                          
+                          {/* Premium Plan */}
+                          <div className="border-2 border-green-500 rounded-lg p-6 bg-gray-800 transform scale-105 z-10 shadow-xl">
+                            <div className="absolute -top-3 right-6 bg-green-500 text-black text-xs px-2 py-1 rounded-md font-medium">POPULAR</div>
+                            <h4 className="text-xl font-semibold text-white mb-2">Premium</h4>
+                            <div className="text-3xl font-bold text-green-500 mb-4">$4.99<span className="text-sm text-gray-400">/month</span></div>
+                            <ul className="space-y-2 mb-6">
+                              <li className="flex items-center text-gray-300">
+                                <svg className="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                Unlimited habits
+                              </li>
+                              <li className="flex items-center text-gray-300">
+                                <svg className="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                Advanced analytics
+                              </li>
+                              <li className="flex items-center text-gray-300">
+                                <svg className="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                Full history access
+                              </li>
+                              <li className="flex items-center text-gray-300">
+                                <svg className="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                Custom reminders
+                              </li>
+                              <li className="flex items-center text-gray-300">
+                                <svg className="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                No ads
+                              </li>
+                            </ul>
+                            <motion.button
+                              className="w-full py-2 bg-green-600 text-black rounded-md hover:bg-green-500 font-medium"
+                              variants={buttonVariants}
+                              whileHover="hover"
+                              whileTap="tap"
+                            >
+                              Start Free Trial
+                            </motion.button>
+                          </div>
+                          
+                          {/* Family Plan */}
+                          <div className="border border-gray-700 rounded-lg p-6 bg-gray-800 hover:border-green-500 transition-all duration-300">
+                            <h4 className="text-xl font-semibold text-white mb-2">Family</h4>
+                            <div className="text-3xl font-bold text-green-500 mb-4">$9.99<span className="text-sm text-gray-400">/month</span></div>
+                            <ul className="space-y-2 mb-6">
+                              <li className="flex items-center text-gray-300">
+                                <svg className="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                Up to 5 accounts
+                              </li>
+                              <li className="flex items-center text-gray-300">
+                                <svg className="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                All premium features
+                              </li>
+                              <li className="flex items-center text-gray-300">
+                                <svg className="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                Family challenges
+                              </li>
+                              <li className="flex items-center text-gray-300">
+                                <svg className="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                Shared goals
+                              </li>
+                            </ul>
+                            <motion.button
+                              className="w-full py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600"
+                              variants={buttonVariants}
+                              whileHover="hover"
+                              whileTap="tap"
+                            >
+                              Choose Plan
+                            </motion.button>
+                          </div>
+                        </div>
+                        
+                        <div className="mt-8 flex justify-end">
+                          <motion.button
+                            onClick={() => setShowPricingDialog(false)}
+                            className="px-5 py-2 bg-green-600 text-black rounded-md hover:bg-green-500 font-medium"
+                            variants={buttonVariants}
+                            whileHover="hover"
+                            whileTap="tap"
+                          >
+                            Close
+                          </motion.button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </div>
+                )}
+              </AnimatePresence>
+        
+              {/* About Us Dialog */}
+              <AnimatePresence>
+                {showAboutUsDialog && (
+                  <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70 p-4">
+                    <motion.div
+                      className="bg-gray-900 rounded-lg shadow-xl max-w-2xl w-full border border-green-500"
+                      variants={dialogVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                    >
+                      <div className="p-6">
+                        <div className="flex justify-between items-start mb-6">
+                          <h3 className="text-2xl font-semibold text-green-500">About Us</h3>
+                          <button
+                            onClick={() => setShowAboutUsDialog(false)}
+                            className="text-green-400 hover:text-green-500"
+                          >
+                            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </div>
+        
+                        <div className="space-y-4">
+                          <div className="flex flex-col md:flex-row gap-6 items-center">
+                            <div className="rounded-full bg-green-500/20 p-4 flex items-center justify-center">
+                              <svg className="h-16 w-16 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                              </svg>
+                            </div>
+                            <div className="text-center md:text-left">
+                              <h4 className="text-xl font-medium text-green-400 mb-2">Our Mission</h4>
+                              <p className="text-gray-300">
+                                At HabitTracker, we believe that small actions repeated daily lead to remarkable results. Our mission is to help you transform your life through the power of consistent habits.
+                              </p>
+                            </div>
+                          </div>
+        
+                          <div className="bg-gray-800 rounded-lg p-4">
+                            <h4 className="text-xl font-medium text-green-400 mb-2">Our Story</h4>
+                            <p className="text-gray-300 mb-4">
+                              Founded in 2023, HabitTracker began as a personal project to solve a simple problem: how to build better habits. What started as a simple tracking tool has grown into a comprehensive platform helping thousands of users achieve their goals.
+                            </p>
+                            <p className="text-gray-300">
+                              Our team of developers, designers, and behavioral scientists work together to create a tool that makes habit formation easier, more effective, and even enjoyable.
+                            </p>
+                          </div>
+        
+                          <div>
+                            <h4 className="text-xl font-medium text-green-400 mb-2">Our Values</h4>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                              <div className="p-3 border border-gray-700 rounded bg-gray-800/50">
+                                <h5 className="font-medium text-white mb-1">Simplicity</h5>
+                                <p className="text-gray-400 text-sm">We believe effective tools should be simple to use.</p>
+                              </div>
+                              <div className="p-3 border border-gray-700 rounded bg-gray-800/50">
+                                <h5 className="font-medium text-white mb-1">Privacy</h5>
+                                <p className="text-gray-400 text-sm">Your data is yours. We prioritize your privacy.</p>
+                              </div>
+                              <div className="p-3 border border-gray-700 rounded bg-gray-800/50">
+                                <h5 className="font-medium text-white mb-1">Growth</h5>
+                                <p className="text-gray-400 text-sm">We continuously improve our platform.</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="mt-6 flex justify-end">
+                          <motion.button
+                            onClick={() => setShowAboutUsDialog(false)}
+                            className="px-5 py-2 bg-green-600 text-black rounded-md hover:bg-green-500 font-medium"
+                            variants={buttonVariants}
+                            whileHover="hover"
+                            whileTap="tap"
+                          >
+                            Close
+                          </motion.button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </div>
+                )}
+              </AnimatePresence>
+        
+              {/* Contact Dialog */}
+              <AnimatePresence>
+                {showContactDialog && (
+                  <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70 p-4">
+                    <motion.div
+                      className="bg-gray-900 rounded-lg shadow-xl max-w-md w-full border border-green-500"
+                      variants={dialogVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                    >
+                      <div className="p-6">
+                        <div className="flex justify-between items-start mb-6">
+                          <h3 className="text-2xl font-semibold text-green-500">Contact Us</h3>
+                          <button
+                            onClick={() => setShowContactDialog(false)}
+                            className="text-green-400 hover:text-green-500"
+                          >
+                            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </div>
+                        
+                        <div className="space-y-4">
+                          <div>
+                            <label htmlFor="name" className="block text-sm font-medium text-green-400">Name</label>
+                            <input
+                              type="text"
+                              id="name"
+                              className="mt-1 block w-full px-3 py-2 bg-gray-800 border border-green-500 rounded-md shadow-sm text-white focus:outline-none focus:ring-green-500 focus:border-green-500"
+                              placeholder="Your name"
+                            />
+                          </div>
+                          <div>
+                            <label htmlFor="email" className="block text-sm font-medium text-green-400">Email</label>
+                            <input
+                              type="email"
+                              id="email"
+                              className="mt-1 block w-full px-3 py-2 bg-gray-800 border border-green-500 rounded-md shadow-sm text-white focus:outline-none focus:ring-green-500 focus:border-green-500"
+                              placeholder="you@example.com"
+                            />
+                          </div>
+                          <div>
+                            <label htmlFor="subject" className="block text-sm font-medium text-green-400">Subject</label>
+                            <select
+                              id="subject"
+                              className="mt-1 block w-full px-3 py-2 bg-gray-800 border border-green-500 rounded-md shadow-sm text-white focus:outline-none focus:ring-green-500 focus:border-green-500"
+                            >
+                              <option>General Inquiry</option>
+                              <option>Technical Support</option>
+                              <option>Account Issues</option>
+                              <option>Feature Request</option>
+                              <option>Other</option>
+                            </select>
+                          </div>
+                          <div>
+                            <label htmlFor="message" className="block text-sm font-medium text-green-400">Message</label>
+                            <textarea
+                              id="message"
+                              rows={4}
+                              className="mt-1 block w-full px-3 py-2 bg-gray-800 border border-green-500 rounded-md shadow-sm text-white focus:outline-none focus:ring-green-500 focus:border-green-500"
+                              placeholder="Your message here..."
+                            ></textarea>
+                          </div>
+                        </div>
+        
+                        <div className="mt-6 flex justify-end space-x-3">
+                          <motion.button
+                            onClick={() => setShowContactDialog(false)}
+                            className="px-4 py-2 border border-green-500 text-green-500 rounded-md hover:bg-gray-800"
+                            variants={buttonVariants}
+                            whileHover="hover"
+                            whileTap="tap"
+                          >
+                            Cancel
+                          </motion.button>
+                          <motion.button
+                            className="px-4 py-2 bg-green-600 text-black rounded-md hover:bg-green-500 font-medium"
+                            variants={buttonVariants}
+                            whileHover="hover"
+                            whileTap="tap"
+                          >
+                            Send Message
+                          </motion.button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </div>
+                )}
+              </AnimatePresence>
+        
+          {/* Blog Dialog */}
+        <AnimatePresence>
+          {showBlogDialog && (
+            <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70 p-4">
+              <motion.div
+                className="bg-gray-900 rounded-lg shadow-xl max-w-2xl w-full border border-green-500"
+                variants={dialogVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+              >
+                <div className="p-6">
+                  <div className="flex justify-between items-start mb-6">
+                    <h3 className="text-2xl font-semibold text-green-500">Our Blog</h3>
+                    <button
+                      onClick={() => setShowBlogDialog(false)}
+                      className="text-green-400 hover:text-green-500"
+                    >
+                      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                  
+                  <div className="space-y-6">
+                    {/* Blog Post 1 */}
+                    <div className="bg-gray-800 rounded-lg p-4 hover:border-green-500 hover:border transition-all duration-300">
+                      <h4 className="text-xl font-medium text-green-400">Building Better Morning Routines</h4>
+                      <p className="text-sm text-gray-400 mb-2">May 1, 2025 • 5 min read</p>
+                      <p className="text-gray-300">
+                        Discover how the first hour of your day can set the tone for everything that follows. Learn how to establish a morning routine that boosts productivity and wellbeing.
+                      </p>
+                      <div className="mt-3">
+                        <a href="#" className="text-green-500 text-sm hover:underline">Read more →</a>
+                      </div>
+                    </div>
+                    
+                    {/* Blog Post 2 */}
+                    <div className="bg-gray-800 rounded-lg p-4 hover:border-green-500 hover:border transition-all duration-300">
+                      <h4 className="text-xl font-medium text-green-400">The Science of Habit Formation</h4>
+                      <p className="text-sm text-gray-400 mb-2">April 20, 2025 • 8 min read</p>
+                      <p className="text-gray-300">
+                        Explore the neuroscience behind habit formation and discover strategies to make lasting changes in your behavior patterns.
+                      </p>
+                      <div className="mt-3">
+                        <a href="#" className="text-green-500 text-sm hover:underline">Read more →</a>
+                      </div>
+                    </div>
+                    
+                    {/* Blog Post 3 */}
+                    <div className="bg-gray-800 rounded-lg p-4 hover:border-green-500 hover:border transition-all duration-300">
+                      <h4 className="text-xl font-medium text-green-400">5 Habits of Highly Successful People</h4>
+                      <p className="text-sm text-gray-400 mb-2">April 10, 2025 • 6 min read</p>
+                      <p className="text-gray-300">
+                        What daily habits do the world's most successful people share? We've analyzed patterns from entrepreneurs, artists, and athletes to uncover their secrets.
+                      </p>
+                      <div className="mt-3">
+                        <a href="#" className="text-green-500 text-sm hover:underline">Read more →</a>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-6 flex justify-between items-center">
+                    <div>
+                      <a href="#" className="text-green-500 hover:underline flex items-center">
+                        <span>View all posts</span>
+                        <svg className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </a>
+                    </div>
+                    <motion.button
+                      onClick={() => setShowBlogDialog(false)}
+                      className="px-5 py-2 bg-green-600 text-black rounded-md hover:bg-green-500 font-medium"
+                      variants={buttonVariants}
+                      whileHover="hover"
+                      whileTap="tap"
+                    >
+                      Close
                     </motion.button>
                   </div>
                 </div>
@@ -2018,6 +2566,7 @@ const Footer = () => {
       <StreakTracker />
       <SignUpSection />
       <Footer />
+      {/* <Mohd/> */}
     </div>
   );
 }
